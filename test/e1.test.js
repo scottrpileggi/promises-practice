@@ -16,9 +16,11 @@ describe("Promise variable test", () => {
     expect(getPromise.constructor.name).toEqual("Promise");
   });
 
+  // TODO: ANDREY PLEASE TAKE A LOOK AT THIS TEST AND LET ME KNOW IF BOTH THIS ONE AND THE NEXT ONE ARE NECCESSARY
   it("Promise should log a resolved message in the console in 1 second", async () => {
     const logSpy = vitest.spyOn(console, "log");
     await getPromise;
+    vitest.advanceTimersByTime(1000);
     expect(logSpy).toHaveBeenLastCalledWith("The PROMISE was RESOLVED");
   });
 
@@ -27,5 +29,4 @@ describe("Promise variable test", () => {
     vitest.advanceTimersByTime(1000);
     expect(result).toEqual("The PROMISE was RESOLVED");
   });
-
 });
