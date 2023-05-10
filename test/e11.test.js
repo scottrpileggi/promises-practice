@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { vitest, it, describe, expect } from "vitest";
 import fetch from "node-fetch";
 import { result, usersUrl } from "../exercises/e11.js";
 
