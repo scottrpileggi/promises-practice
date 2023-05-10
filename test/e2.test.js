@@ -5,17 +5,19 @@ describe("promise", () => {
   it("Promise variable should exist", () => {
     expect(getPromise).toBeInstanceOf(Function);
   });
-  
+
   it("Promise constructor returned from the function should have a name of Promise", async () => {
     expect(getPromise(true).constructor.name).toEqual("Promise");
   });
 
-  it("Promise should reject with the reason of 'The PROMISE was REJECTED'", () => {
-    expect(getPromise(false)).rejects.toEqual("The PROMISE was REJECTED");
+  it("Promise should reject with the reason of 'The PROMISE was REJECTED'", async () => {
+    expect(await getPromise(false).catch((n) => n)).toEqual(
+      "The PROMISE was REJECTED"
+    );
   });
 
-  it("Promise should resolve with the value of 'The PROMISE was RESOLVED'", () => {
-    expect(getPromise(true)).resolves.toEqual("The PROMISE was RESOLVED");
+  it("Promise should resolve with the value of 'The PROMISE was RESOLVED'", async () => {
+    expect(await getPromise(true)).toEqual("The PROMISE was RESOLVED");
   });
 });
 
