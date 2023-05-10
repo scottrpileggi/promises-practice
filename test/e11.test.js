@@ -50,4 +50,3 @@ describe("Test the users EndPoint and json-server running", () => {
     expect(await res).toEqual(dataSample);
   });
 });
-

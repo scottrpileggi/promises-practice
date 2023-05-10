@@ -58,7 +58,7 @@ const data = fetch(url);
 data
   // resolve into JS array after fetch has resolved
   .then(res => res.json())
-  // log and return the JS array 
+  // log and return the JS array
   .then(data => {
     console.log(data))
     return data;
@@ -69,7 +69,7 @@ data
 
 ## Fetching in NodeJS
 
-NodeJS does not support the fetch API by default, so whenever you use it with NodeJS it will throw an error of ``ReferenceError: fetch is not defined``.
+NodeJS does not support the fetch API by default, so whenever you use it with NodeJS it will throw an error of `ReferenceError: fetch is not defined`.
 
 The "node-fetch" package, which is a A light-weight module that brings Fetch API to Node.js allows us to import the fetch method into our NodeJS project.
 
@@ -77,7 +77,7 @@ To start using it you need to take 2 steps:
 
 1. Install the package with the following command:
 
-```npm install node-fetch```
+`npm install node-fetch`
 
 2. Import the 'fetch' method from the package and use it in the file.
 

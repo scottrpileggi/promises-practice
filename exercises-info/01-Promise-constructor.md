@@ -1,11 +1,12 @@
-# PROMISE CONSTRUCTOR #
+# PROMISE CONSTRUCTOR
 
 The **Promise()** constructor is primarily used to wrap functions that do not already support promises.
 
 The Promise can be in 1 of 3 states
-* **pending**: initial state, neither fulfilled nor rejected.
-* **fulfilled**: meaning that the operation was completed successfully (resolved).
-* **rejected**: meaning that the operation failed.
+
+- **pending**: initial state, neither fulfilled nor rejected.
+- **fulfilled**: meaning that the operation was completed successfully (resolved).
+- **rejected**: meaning that the operation failed.
 
 ```JS
 // Create a promise object
@@ -15,6 +16,7 @@ const promiseName = new Promise(executor);
 The executor is a function to be executed by the constructor. It receives two functions as parameters (arguments): resolveFunc (onFulfilled) and rejectFunc(onRejected). Any errors thrown in the executor will cause the promise to be rejected, and the return value will be neglected.
 
 ## Executor: Resolving a Promise
+
 ```JS
 const executor = (resolve, reject) => {
   // In some docs you will meet the 'fulfill' first argument name instead of 'resolve'
@@ -24,6 +26,7 @@ const executor = (resolve, reject) => {
 ```
 
 ## Executor: Rejecting a Promise
+
 ```JS
 const executor = (resolve, reject) => {
   // Let's reject the promise with 'Something went wrong...' value.
@@ -36,11 +39,12 @@ const executor = (resolve, reject) => {
 The then() method of a Promise object takes up to two arguments: callback functions for the fulfilled and rejected cases of the Promise. It immediately returns an equivalent Promise object, allowing you to chain calls to other promise methods.
 
 #### The full syntax for a resolving Promise:
+
 ```JS
   // Declare/Initialize the promise
   var promise = new Promise((resolve, reject) => resolve('RESOLVED'));
 
-  // The onFulfilled and onRejected callback function 
+  // The onFulfilled and onRejected callback function
   const onFulfilled = (data) => data;
   const onRejected = (reason) => reason;
 
@@ -48,9 +52,11 @@ The then() method of a Promise object takes up to two arguments: callback functi
   promise
     .then(onFulfilled, onRejected)
 ```
+
 The resolved promise will not change its state to be rejected and the rejected promise will never become resolved. In the case above you can see that both onFulfilled and onRejected callbacks were declared outside of the .then() arguments list. You can make it more simple writing the code of those callbacks inside the parentheses of the .then syntax.
 
 #### The same solution with the callbacks' code inside .then():
+
 ```JS
   // Declare/Initialize the promise
   var promise = new Promise((resolve, reject) => resolve('RESOLVED'));
@@ -59,7 +65,7 @@ The resolved promise will not change its state to be rejected and the rejected p
   promise
     .then(
       (data) => data,
-      (reason) => reason 
+      (reason) => reason
       // The second argument will never be executed as the promise is resolved, so only the onFulfilled argument matters. It means that the .then() method syntax can be simplified to
       // .then((data) => data, null) or
       // .then((data) => data)
@@ -67,6 +73,7 @@ The resolved promise will not change its state to be rejected and the rejected p
 ```
 
 #### The rejected promise with the callbacks' code inside .then():
+
 ```JS
   // Declare/Initialize the promise
   var promise = new Promise((resolve, reject) => reject('REJECTED'));
@@ -74,7 +81,7 @@ The resolved promise will not change its state to be rejected and the rejected p
   // Pass the callbacks as arguments into .then() method.
   promise
     .then(
-      null, 
+      null,
       // null can be used, as the first argument since the promise is rejected, so onFulfilled callback argument will never be executed.
       (reason) => reason
     )

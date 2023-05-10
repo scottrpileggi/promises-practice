@@ -23,4 +23,4 @@ describe("Promise variable test", () => {
     vitest.advanceTimersByTime(1000);
     expect(result).toEqual("The PROMISE was RESOLVED");
   });
-})
+});
