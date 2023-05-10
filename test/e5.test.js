@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { vitest, it, describe, expect } from "vitest";
 import { attachTitle, getPromise } from "../exercises/e5.js";
 
 describe("Promise variable test", () => {

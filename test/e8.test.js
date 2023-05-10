@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { vitest, it, describe, expect, } from "vitest";
 import { promiseResolved, promiseRejected } from "../exercises/e8.js";
 
 describe("promiseResolved", () => {
@@ -27,6 +27,6 @@ describe("promiseRejected variable test", () => {
   });
 
   it("promiseRejected should resole with a rejected reason of the promise", async () => {
-    await expect(promiseRejected).resolves.toEqual("The PROMISE was REJECTED");
+    expect(await promiseRejected).toEqual("The PROMISE was REJECTED");
   });
 });

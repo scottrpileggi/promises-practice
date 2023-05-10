@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { vitest, it, describe, expect } from "vitest";
 import { handlePromise } from "../exercises/e6.js";
 
 describe("handlePromise", () => {

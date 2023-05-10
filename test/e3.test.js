@@ -11,8 +11,8 @@ describe("getPromise", () => {
   });
 
   it("Promise should resolve with a value of 'Promise resolved'", async () => {
-    await expect(getPromise(9)).resolves.toEqual(9);
-    await expect(getPromise(80)).resolves.toEqual(80);
+    expect(await getPromise(9)).toEqual(9);
+    expect(await getPromise(80)).toEqual(80);
   });
 
   it("Function returns 0 if the argument is not a whole number or is not a number", () => {

@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { vitest, it, describe, expect } from "vitest";
 import { promise, iterate, alwaysThrows, onReject } from "../exercises/e9.js";
 
 describe("Promise variable test", () => {
@@ -39,8 +39,7 @@ describe("onReject function test", () => {
 describe("Promise is settled as rejected", () => {
   it("Promise resolves with undefined return function call", async () => {
     const logSpy = vitest.spyOn(console, "log");
-    await promise;
     expect(logSpy).toHaveBeenCalledOnce;
-    await expect(promise).resolves.toEqual(undefined);
+    expect(await promise).toEqual(undefined);
   });
 });

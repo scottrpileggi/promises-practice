@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { it, describe, expect } from "vitest";
 import { handlePromise } from "../exercises/e4.js";
 
 describe("Promise variable test", () => {
