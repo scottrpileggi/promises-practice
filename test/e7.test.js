@@ -15,9 +15,9 @@ describe("parsePromised", () => {
 
   it("Promise function should throw an error when rejected", async () => {
     //parsePromised(invalidJsonString).catch(e => e);
-    await expect(
-      await parsePromised(invalidJsonString).catch((err) => err)
-    ).toThrow(new Error("Unexpected token T in JSON at position 0"));
+    expect(
+      await parsePromised(invalidJsonString).catch((err) => err.message)
+    ).toBe("Unexpected token T in JSON at position 0");
   });
 });
 

@@ -1,4 +1,4 @@
-import { vitest, it, describe, expect, beforeEach } from "vitest";
+import { it, describe, expect } from "vitest";
 import { getPromise, updateSumValue } from "../exercises/e3.js";
 
 describe("getPromise", () => {
