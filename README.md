@@ -10,6 +10,10 @@
 
 ## HOW IT WORKS
 
+**Make sure your NodeJS version is at least v16, otherwise some tests may fail even if the solution is correct**
+
+Execute "`node -v`" in the terminal to check the version/
+
 - The repo has the "exercises" folder with 11 exercise files (e1.js, e2.js, ... etc). Each file includes the task description, data imported if required, and a placeholders for your code.
 - Descriptions for some exercises are located in /exercise-info/ folder. Make sure to read those!
 - Open e1.js file and start writing the Promise constructor code beneath the "Your code goes here..." placeholder to achieve the goals described.
