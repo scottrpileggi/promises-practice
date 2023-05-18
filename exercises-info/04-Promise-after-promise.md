@@ -4,10 +4,10 @@ So far, you have handled promise fulfillment and rejection, but all your
 handlers have been done synchronously like printing text. What if you want to
 do something asynchronously?
 
-Imagine three functions that return promises with the code beneath: 
+Imagine three functions that return promises with the code beneath:
 
 ```js
-Parse.User.logIn('user', 'pass').then(function (query) {
+Parse.User.logIn("user", "pass").then(function (query) {
   query.find().then(function (results) {
     results[0].save({ key: value }).then(function (result) {
       // the object was saved
@@ -25,7 +25,7 @@ turn be returned by `then`, so you can use it to do something after both of
 the actions are done. For example, the above code can be replaced by:
 
 ```js
-var originalPromise = Parse.User.logIn('user', 'pass');
+var originalPromise = Parse.User.logIn("user", "pass");
 
 var findPromise = originalPromise.then(function (query) {
   // At this point, you have logged in.
@@ -49,7 +49,7 @@ savePromise.then(function (result) {
 which can then be simplified to:
 
 ```js
-Parse.User.logIn('user', 'pass')
+Parse.User.logIn("user", "pass")
   .then((query) => query.find())
   .then((results) => results[0].save({ key: value }))
   .then(function (result) {

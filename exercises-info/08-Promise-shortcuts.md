@@ -1,10 +1,10 @@
-# PROMISE SHORTCUTS #
+# PROMISE SHORTCUTS
 
 Promise shortcuts are used more often rather than the full-syntax expressions. The shortcuts are:
 
-* Promise.resolve()
-* Promise.reject()
-* Promise.catch()
+- Promise.resolve()
+- Promise.reject()
+- Promise.catch()
 
 In the previous md files you have learned how to call the resolve/reject method in the executor function:
 
@@ -25,4 +25,3 @@ var resolvedPromise = Promise.resolve('resolved');
 
 var rejectedPromise = Promise.reject('rejected');
 ```
-

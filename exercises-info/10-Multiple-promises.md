@@ -1,11 +1,11 @@
-# MULTIPLE PROMISES #
+# MULTIPLE PROMISES
 
 Multiple promises in JavaScript are handled with the following set of methods:
 
-* Promise.all()
-* Promise.any()
-* Promise.allSettled()
-* Promise.race()
+- Promise.all()
+- Promise.any()
+- Promise.allSettled()
+- Promise.race()
 
 ## Promise.all()
 
