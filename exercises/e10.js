@@ -41,6 +41,11 @@ export const handlePromise1 = Promise.any(promiseArr).catch((e) => e);
  */
 
 // Your code goes here...
+export const handlePromise2 = (arr) => {
+  return Promise.any(arr)
+    .then((val) => val)
+    .catch((err) => err);
+};
 
 /**
  * @task
@@ -60,15 +65,16 @@ export const handlePromise1 = Promise.any(promiseArr).catch((e) => e);
 
 /**
  * @task
- * Update the initializer for the newPromiseArr to get a value of the modified
- * promiseArr array, so that the handlePromise4 function returns
- * the resolved value of promise4 ('RESOLVED AGAIN') with the Promise.race() method.
- * You can use any applicative (map(), reduce(), filter(), reduce).
- * The value MUST have more than one promise in the array!
- * Example: export const newPromiseArr = promiseArr.<method>()...
+ * Update the filter method callback to filter out any promise that will be settled before promise4
+ * so that the handlePromise4 function returns the resolved value of promise4 ('RESOLVED AGAIN')
+ * with the Promise.race() method, when the newPromiseArr is passes as the argument.
+ * The value of newPromiseArr MUST have more than one promise in the array!
  */
 
-export const newPromiseArr = []; // Update code here
+export const newPromiseArr = promiseArr.filter((promise) => {
+  // Your code goes here...
+  return promise;
+});
 
 // Do NOT refactor or update handlePromise4 function, it's all set to work
 export const handlePromise4 = (arr) => {
