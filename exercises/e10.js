@@ -41,11 +41,6 @@ export const handlePromise1 = Promise.any(promiseArr).catch((e) => e);
  */
 
 // Your code goes here...
-export const handlePromise2 = (arr) => {
-  return Promise.any(arr)
-    .then((val) => val)
-    .catch((err) => err);
-};
 
 /**
  * @task
