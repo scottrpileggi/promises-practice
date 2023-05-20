@@ -29,7 +29,7 @@ Code sample:
 
 ```JS
 
-export const result = async () => {
+export const result = () => {
   const promise =  // Promise constructor with the fulfill function>
   promise.then(/* log the promise resolved value */)
   console.log('MAIN PROGRAM');
