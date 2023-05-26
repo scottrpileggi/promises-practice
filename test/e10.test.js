@@ -64,7 +64,7 @@ describe("HandlePromise3 variable test", () => {
     expect(promiseSpy).toBeCalled();
   });
 
-  it("HandlePromise3 should return a resolved value of the array of all promises status and value", async () => {
+  it("HandlePromise3 should return a resolved value of the array of all promises status and value/reason", async () => {
     expect(await handlePromise3(promiseArr)).toEqual(sampleData);
   });
 });

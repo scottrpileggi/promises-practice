@@ -37,7 +37,7 @@ describe("onReject function test", () => {
 });
 
 describe("Promise is settled as rejected", () => {
-  it("Promise resolves with undefined return function call", async () => {
+  it("Promise resolves with undefined return value of the onReject() function call", async () => {
     const logSpy = vitest.spyOn(console, "log");
     expect(logSpy).toHaveBeenCalledOnce;
     expect(await promise).toEqual(undefined);

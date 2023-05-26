@@ -16,10 +16,10 @@ describe("attachTitle test", () => {
   });
 });
 
-describe("Promise is settled as resolved", () => {
-  it("Promise should resolve with a message of 'DR. MANHATTAN'", async () => {
+describe("getPromise test", () => {
+  it("Promise should resolve with logging a message of 'DR. MANHATTAN' in the console", async () => {
     const logSpy = vitest.spyOn(console, "log");
-    await getPromise().then((d) => console.log(d));
+    await getPromise();
     expect(logSpy).toHaveBeenCalledWith("DR. MANHATTAN");
   });
 });

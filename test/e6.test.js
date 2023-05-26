@@ -10,7 +10,7 @@ describe("handlePromise", () => {
     expect(handlePromise().constructor.name).toEqual("Promise");
   });
 
-  it("Promise final value message is 'This promise is finished!'", async () => {
+  it("Promise finally logs a message of 'This promise is finished!' in the console", async () => {
     const logSpy = vitest.spyOn(console, "log");
     await handlePromise().catch((d) => console.log(d));
     expect(logSpy).toHaveBeenLastCalledWith("This promise is finished!");

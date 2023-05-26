@@ -10,13 +10,16 @@ describe("getPromise", () => {
     expect(getPromise(9).constructor.name).toEqual("Promise");
   });
 
-  it("Promise should resolve with a value of 'Promise resolved'", async () => {
+  it("Promise should resolve with a value of the whole number argument", async () => {
     expect(await getPromise(9)).toEqual(9);
     expect(await getPromise(80)).toEqual(80);
   });
 
-  it("Function returns 0 if the argument is not a whole number or is not a number", () => {
+  it("Function returns 0 if the argument is a string", () => {
     expect(getPromise("abc")).toEqual(0);
+  });
+
+  it("Function returns 0 if the argument is not a whole number", () => {
     expect(getPromise(9.1)).toEqual(0);
   });
 });
@@ -26,7 +29,7 @@ describe("logSyncAndAsyncMessages", () => {
     expect(updateSumValue).toBeInstanceOf(Function);
   });
 
-  it("Function logs the resolved promise value last", async () => {
+  it("Function returns 10 whatever argument value the promise function was invoked with", async () => {
     expect(updateSumValue(Promise.resolve(121))).toBe(10);
   });
 });
