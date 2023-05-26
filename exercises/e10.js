@@ -66,10 +66,7 @@ export const handlePromise1 = Promise.any(promiseArr).catch((e) => e);
  * The value of newPromiseArr MUST have more than one promise in the array!
  */
 
-export const newPromiseArr = promiseArr.filter((promise) => {
-  // Your code goes here...
-  return promise;
-});
+export const newPromiseArr = promiseArr.filter(/* <Your code goes here>*/);
 
 // Do NOT refactor or update handlePromise4 function, it's all set to work
 export const handlePromise4 = (arr) => {
