@@ -29,7 +29,7 @@ describe("logSyncAndAsyncMessages", () => {
     expect(updateSumValue).toBeInstanceOf(Function);
   });
 
-  it("Function returns 10 whatever value the promise function was invoked with", async () => {
+  it("Function returns 10 whatever argument value the promise function was invoked with", async () => {
     expect(updateSumValue(Promise.resolve(121))).toBe(10);
   });
 });
