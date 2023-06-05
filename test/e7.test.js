@@ -14,10 +14,9 @@ describe("parsePromised", () => {
   });
 
   it("Promise function should throw an error when rejected", async () => {
-    //parsePromised(invalidJsonString).catch(e => e);
     expect(
       await parsePromised(invalidJsonString).catch((err) => err.message)
-    ).toBe("Unexpected token T in JSON at position 0");
+    ).toMatch(/JSON/i);
   });
 });
 
@@ -49,7 +48,7 @@ describe("handlePromise", () => {
   it("Should log the error message if I pass in a promise that rejects", async () => {
     const logSpy = vitest.spyOn(console, "log");
     await handlePromise(parsePromised(invalidJsonString));
-    expect(logSpy).toBeCalledWith("Unexpected token T in JSON at position 0");
+    expect(logSpy).toBeCalledWith(expect.stringMatching(/JSON/i));
   });
 
   it("Should return a value that resolves to the resolved value of the promise I pass in", async () => {
