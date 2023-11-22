@@ -1,32 +1,49 @@
-import { vitest, it, describe, expect, } from "vitest";
-import { promiseResolved, promiseRejected } from "../exercises/e8.js";
+import { it, describe, expect, beforeEach, afterEach } from "vitest";
+import { returnPromise, returnRejectingPromise } from "../exercises/e8.js";
 
-describe("promiseResolved", () => {
-  it("promiseResolved variable should exist", () => {
-    expect(promiseResolved).toBeInstanceOf(Object);
+describe("returnPromise", () => {
+  it("returnPromise variable should exist", () => {
+    expect(returnPromise).toBeInstanceOf(Function);
   });
 
-  it("promiseResolved constructor should have a name of Promise", () => {
-    expect(promiseResolved.constructor.name).toEqual("Promise");
+  it("returnPromise should return a Promise", () => {
+    expect(returnPromise().constructor.name).toEqual("Promise");
   });
 
-  it("Promise should log a resolved message in the console", async () => {
-    const logSpy = vitest.spyOn(console, "log");
-    await promiseResolved.then((d) => console.log(d));
-    expect(logSpy).toHaveBeenLastCalledWith("The PROMISE was RESOLVED");
+  it("returnPromise should resolve to 'The PROMISE was RESOLVED'", async () => {
+    expect(await returnPromise()).toBe("The PROMISE was RESOLVED");
+  });
+
+  it("returnPromise should have less than `` characters", () => {
+    const characterCount = returnPromise.toString().length;
+    expect(characterCount).toBeLessThan(50);
   });
 });
 
-describe("promiseRejected variable test", () => {
-  it("promiseRejected variable should exist", () => {
-    expect(promiseRejected).toBeInstanceOf(Object);
+describe("returnRejectingPromise", () => {
+  let promise;
+
+  beforeEach(() => {
+    promise = returnRejectingPromise();
+  });
+  afterEach(async () => {
+    await promise.catch(() => {});
   });
 
-  it("promiseRejected constructor should have a name of Promise", () => {
-    expect(promiseRejected.constructor.name).toEqual("Promise");
+  it("returnRejectingPromise function should exist", async () => {
+    expect(returnRejectingPromise).toBeInstanceOf(Function);
   });
 
-  it("promiseRejected should resole with a rejected reason of the promise", async () => {
-    expect(await promiseRejected).toEqual("The PROMISE was REJECTED");
+  it("returnRejectingPromise should return a Promise", () => {
+    expect(promise.constructor.name).toEqual("Promise");
+  });
+
+  it("returnRejectingPromise should reject with a message of 'The PROMISE was REJECTED'", async () => {
+    expect(await promise.catch((n) => n)).toEqual("The PROMISE was REJECTED");
+  });
+
+  it("returnRejectingPromise should have less than `80` characters", () => {
+    const characterCount = returnRejectingPromise.toString().length;
+    expect(characterCount).toBeLessThan(80);
   });
 });
