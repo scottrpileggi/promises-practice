@@ -38,7 +38,7 @@ const executor = (resolve, reject) => {
 
 The then() method of a Promise object takes up to two arguments: callback functions for the fulfilled and rejected cases of the Promise. It immediately returns an equivalent Promise object, allowing you to chain calls to other promise methods.
 
-#### The full syntax for a resolving Promise:
+#### The full syntax for a resolving Promise
 
 ```JS
   // Declare/Initialize the promise
@@ -55,7 +55,7 @@ The then() method of a Promise object takes up to two arguments: callback functi
 
 The resolved promise will not change its state to be rejected and the rejected promise will never become resolved. In the case above you can see that both onFulfilled and onRejected callbacks were declared outside of the .then() arguments list. You can make it more simple writing the code of those callbacks inside the parentheses of the .then syntax.
 
-#### The same solution with the callbacks' code inside .then():
+#### The same solution with the callbacks' code inside .then()
 
 ```JS
   // Declare/Initialize the promise
@@ -72,7 +72,7 @@ The resolved promise will not change its state to be rejected and the rejected p
     )
 ```
 
-#### The rejected promise with the callbacks' code inside .then():
+#### The rejected promise with the callbacks' code inside .then()
 
 ```JS
   // Declare/Initialize the promise
@@ -90,3 +90,41 @@ The resolved promise will not change its state to be rejected and the rejected p
 Even though, the most often used way to catch the rejected reason is the .catch() shortcut method, we want you to know that you can pass the onRejected callback within the second argument of .then() method and to be able to use it.
 
 In the e2.js exercise file you will be asked to get and log the rejected promise reason value using the .then() method, so .catch() method is not allowed.
+
+#### (Auxillary) SetTimeout
+
+If you need a little refresher on setTimeout, which you will need for this problem, here's pretty much all you need to know
+
+```js
+setTimeout(() => {
+  //  Any code in here runs after one second
+}, 1000);
+```
+
+If you want to play around with this try copying the following code in your browser or running it in node...
+
+```js
+setTimeout(() => {
+  console.log("5");
+}, 1000);
+
+setTimeout(() => {
+  console.log("4");
+}, 2000);
+
+setTimeout(() => {
+  console.log("3");
+}, 3000);
+
+setTimeout(() => {
+  console.log("2");
+}, 4000);
+
+setTimeout(() => {
+  console.log("1");
+}, 5000);
+
+setTimeout(() => {
+  console.log("Blast Off 🚀");
+}, 6000);
+```

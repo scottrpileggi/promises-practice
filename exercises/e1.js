@@ -1,20 +1,26 @@
 /**
  * PROMISE CONSTRUCTOR (Resolve with onFulfilled callback argument )
  * Please, make sure to read the "01 Promise-constructor.md" file in exercise-info folder before you start!
- * Create a promise with a constructor that follows the requirements:
- * * Is assigned to the getPromise exported constant
- * * The promise is resolved (fulfilled) with a message of 'The PROMISE was RESOLVED' in 1 second.
- * * (setTimeout function usage is required)
- * After the promise is settled do the following:
- * * Using .then() syntax with onFulfilled callback argument:
- * * * log the resolved promise value
- * * * Return the value
- * The getPromise constant must be exported
- * Example: export const getPromise = <Your promise constructor code>
- *          getPromise.then(<Your onFulfilled callback code>)
- */
+ **/
 
-// Your code goes here
+export const createOneSecondPromise = () => {
+  // Return a Promise that resolves to the string 'The PROMISE was RESOLVED' in 1 second
+  // make sure to use the promise constructor described in The Markdown For this exercise
+};
+
+export const logMessageAfterOneSecond = (message) => {
+  // use the 'createOneSecondPromise' function, and the `onFulfilled` callback with a `.then` method
+  // to create a function that logs a message after one second
+  // make sure to return the resulting promise that you create here so we can
+  // wait on it for the test
+};
+
+export const logMessageAfterOneSecondAwait = async (message) => {
+  // use the 'createOneSecondPromise' function, and the await keyword
+  // to create a function that logs a message after one second
+  // in an async function it automatically returns a promise no matter what you return, so you don't need to
+  // worry about what you return
+};
 
 // === TEST YOURSELF ===
 // Once you're finished run the test with "npm run test-1"
