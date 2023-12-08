@@ -1,90 +1,213 @@
-import { vitest, it, describe, expect } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vitest } from "vitest";
 import {
-  handlePromise1,
-  handlePromise2,
-  handlePromise3,
-  handlePromise4,
-  promiseArr,
-  newPromiseArr,
-} from "../exercises/e10.js";
+  getFirstPromiseOrFail,
+  getFirstResolvedPromise,
+  getQuantityOfRejectedPromises,
+  getQuantityOfFulfilledPromises,
+  fetchAllCharactersByIds,
+  allCharacters,
+} from "../exercises/e10";
 
-describe("HandlePromise1 test", () => {
-  it("HandlePromise1 should exist should exist", () => {
-    expect(handlePromise1).toBeInstanceOf(Object);
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const failAfterWith = (ms, withValue) =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => {
+      reject(withValue);
+    }, ms)
+  );
+
+describe("e10", () => {
+  beforeAll(() => {
+    vitest.useFakeTimers();
   });
 
-  it("HandlePromise1 should return a promise", () => {
-    expect(handlePromise1.constructor.name).toEqual("Promise");
+  describe("getFirstResolvedPromise", () => {
+    it("should return the first promise that resolves", async () => {
+      const oneSecondPromise = wait(1000).then(() => "1");
+      const twoSecondPromise = wait(1000).then(() => "2");
+      const result = getFirstResolvedPromise([
+        oneSecondPromise,
+        twoSecondPromise,
+      ]);
+      vitest.runOnlyPendingTimers();
+
+      expect(await result).toBe("1");
+    });
+
+    it("should return the first promise that resolves", async () => {
+      const oneSecondPromise = wait(1000).then(() => "1");
+      const twoSecondPromise = wait(2000).then(() => "2");
+      const result = getFirstResolvedPromise([
+        twoSecondPromise,
+        oneSecondPromise,
+      ]);
+
+      vitest.runOnlyPendingTimers();
+
+      expect(await result).toBe("1");
+    });
+
+    it("should not fail if one thing rejects", async () => {
+      const oneSecondPromise = wait(1000).then(() => "3");
+      const twoSecondPromise = wait(2000).then(() => "4");
+      const halfSecondFailure = failAfterWith(500);
+
+      const result = getFirstResolvedPromise([
+        halfSecondFailure,
+        twoSecondPromise,
+        oneSecondPromise,
+      ]);
+
+      vitest.runOnlyPendingTimers();
+      expect(await result).toBe("3");
+    });
   });
 
-  it("HandlePromise1 should return the reason of the promise that rejects with 'Promise 2 REJECTED'", async () => {
-    expect(await handlePromise1).toEqual("Promise 2 REJECTED");
-  });
-});
+  describe("getFirstPromiseOrFail", () => {
+    it("should return the first promise that resolves if all promises resolve", async () => {
+      const oneSecondPromise = wait(1000).then(() => "1");
+      const twoSecondPromise = wait(1000).then(() => "2");
 
-describe("HandlePromise2 function test", () => {
-  it("HandlePromise2 variable should exist", () => {
-    expect(handlePromise2).toBeInstanceOf(Function);
-  });
+      const result = getFirstPromiseOrFail([
+        twoSecondPromise,
+        oneSecondPromise,
+      ]);
 
-  it("HandlePromise2 should return a promise", () => {
-    expect(handlePromise2(promiseArr).constructor.name).toEqual("Promise");
-  });
+      vitest.runOnlyPendingTimers();
+      expect(await result).toBe("1");
+    });
 
-  it("HandlePromise2 should use .any() method", () => {
-    const promiseSpy = vitest.spyOn(Promise, "any");
-    handlePromise2(promiseArr);
-    expect(promiseSpy).toBeCalled();
-  });
+    it("should not fail when encountering a failure after resolving", async () => {
+      const oneSecondPromise = wait(1000).then(() => "1");
+      const threeSecondFailure = failAfterWith(3000, "3");
+      const result = getFirstPromiseOrFail([
+        threeSecondFailure,
+        oneSecondPromise,
+      ]).catch(() => "failed");
 
-  it("HandlePromise2 should return a resolved value of 'Promise 3 RESOLVED'", async () => {
-    expect(await handlePromise2(promiseArr)).toEqual("Promise 3 RESOLVED");
-  });
-});
+      vitest.advanceTimersToNextTimer();
 
-describe("HandlePromise3 variable test", () => {
-  const sampleData = [
-    { status: "fulfilled", value: "RESOLVED AGAIN" },
-    { status: "rejected", reason: "Promise 2 REJECTED" },
-    { status: "fulfilled", value: "Promise 3 RESOLVED" },
-    { status: "fulfilled", value: "RESOLVED AGAIN" },
-  ];
+      expect(await result).toBe("1");
+    });
 
-  it("Result3 variable should exist", () => {
-    expect(handlePromise3).toBeInstanceOf(Function);
-  });
+    it("should reject when encountering a failure before resolving", async () => {
+      const oneSecondPromise = wait(1000).then(() => "1");
+      const twoSecondPromise = wait(1000).then(() => "2");
+      const halfSecondFailure = failAfterWith(500, "3");
 
-  it("HandlePromise3 should return a promise", () => {
-    expect(handlePromise3(promiseArr).constructor.name).toEqual("Promise");
-  });
+      const result = getFirstPromiseOrFail([
+        twoSecondPromise,
+        halfSecondFailure,
+        oneSecondPromise,
+      ])
+        .then(() => "resolved")
+        .catch((error) => error);
 
-  it("HandlePromise3 should use .allSettled() method", () => {
-    const promiseSpy = vitest.spyOn(Promise, "allSettled");
-    handlePromise3(promiseArr);
-    expect(promiseSpy).toBeCalled();
-  });
+      vitest.advanceTimersToNextTimer();
 
-  it("HandlePromise3 should return a resolved value of the array of all promises status and value/reason", async () => {
-    expect(await handlePromise3(promiseArr)).toEqual(sampleData);
-  });
-});
-
-describe("handlePromise4 variable test", () => {
-  it("handlePromise4 variable should exist", () => {
-    expect(handlePromise4).toBeInstanceOf(Function);
+      expect(await result).toBe("3");
+    });
   });
 
-  it("HandlePromise4 should return a promise", () => {
-    expect(handlePromise4(newPromiseArr).constructor.name).toEqual("Promise");
+  describe("getQuantityOfRejectedPromises", () => {
+    it("should get 3 failures if I pass in 3 failing promises and 1 succeeding promise", async () => {
+      const promises = [
+        failAfterWith(1, "rejected"),
+        failAfterWith(1, "rejected"),
+        wait(1000),
+        failAfterWith(100, "rejected"),
+      ];
+
+      const result = getQuantityOfRejectedPromises(promises);
+      vitest.runAllTimers();
+
+      expect(await result).toBe(3);
+    });
+
+    it("should get 0 failures if I pass in all successful promises", async () => {
+      const promises = [wait(1000), wait(2000), wait(4000)];
+
+      const result = getQuantityOfRejectedPromises(promises);
+      vitest.runAllTimers();
+
+      expect(await result).toBe(0);
+    });
+
+    it("should get 2 failures if I pass in 2 failures and 2 successes", async () => {
+      const promises = [
+        wait(1000),
+        failAfterWith(500, "rejected"),
+        wait(2000),
+        failAfterWith(500, "rejected"),
+      ];
+
+      const result = getQuantityOfRejectedPromises(promises);
+      vitest.runAllTimers();
+
+      expect(await result).toBe(2);
+    });
   });
 
-  it("HandlePromise4 should use .allSettled() method", () => {
-    const promiseSpy = vitest.spyOn(Promise, "race");
-    handlePromise4(promiseArr);
-    expect(promiseSpy).toBeCalled();
+  describe("getQuantityOfFulfilledPromises", () => {
+    it("should get me 1 resolved if I pass in three failing promises and 1 succeeding promise", async () => {
+      const promises = [
+        failAfterWith(1, "rejected"),
+        failAfterWith(1, "rejected"),
+        wait(1000),
+        failAfterWith(100, "rejected"),
+      ];
+
+      const result = getQuantityOfFulfilledPromises(promises);
+      vitest.runAllTimers();
+
+      expect(await result).toBe(1);
+    });
+
+    it("should get 3 resolved values if I pass in 3 successful promises", async () => {
+      const promises = [wait(1000), wait(2000), wait(4000)];
+
+      const result = getQuantityOfFulfilledPromises(promises);
+      vitest.runAllTimers();
+
+      expect(await result).toBe(3);
+    });
   });
 
-  it("HandlePromise4 should return a resolved value of 'RESOLVED AGAIN'", async () => {
-    expect(await handlePromise4(newPromiseArr)).toEqual("RESOLVED AGAIN");
+  describe.concurrent("fetchAllCharactersByIds", () => {
+    beforeAll(() => {
+      vitest.useRealTimers();
+    });
+    afterAll(() => {
+      vitest.useFakeTimers();
+    });
+
+    it("[1,2], should return billy and mandy", async () => {
+      const result = fetchAllCharactersByIds([1, 2]);
+
+      expect(await result).toEqual([
+        allCharacters.find((c) => c.id === 1),
+        allCharacters.find((c) => c.id === 2),
+      ]);
+    });
+
+    it("[1,2,3] should return all characters", async () => {
+      const result = fetchAllCharactersByIds([1, 2, 3]);
+      expect(await result).toEqual(allCharacters);
+    });
+
+    it(
+      "should not take more than one second to run on all characters ",
+      async () => {
+        const result = fetchAllCharactersByIds([1, 2, 3]);
+        expect(await result).toEqual(allCharacters);
+      },
+      { timeout: 1050 }
+    );
+
+    it("should return an empty array if any id is bad", async () => {
+      const result = fetchAllCharactersByIds([1, 2, 3, 4]);
+      expect(await result).toEqual([]);
+    });
   });
 });
