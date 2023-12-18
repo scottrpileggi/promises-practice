@@ -9,10 +9,8 @@ export const createOneSecondPromise = () => {
 };
 
 export const logMessageAfterOneSecond = (message) => {
-  // use the 'createOneSecondPromise' function, and the `onFulfilled` callback with a `.then` method
-  // to create a function that logs a message after one second
-  // make sure to return the resulting promise that you create here so we can
-  // wait on it for the test
+  // use the 'createOneSecondPromise' function, and a `onFulfilled` callback with a `.then` method
+  // to log the `message` parameter we pass in after one second
 };
 
 export const logMessageAfterOneSecondAwait = async (message) => {
