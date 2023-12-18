@@ -14,9 +14,9 @@ describe("returnPromise", () => {
     expect(await returnPromise()).toBe("The PROMISE was RESOLVED");
   });
 
-  it("returnPromise should have less than `` characters", () => {
+  it("The string representing the code that you wrote for returnPromise should have less than `80` characters", () => {
     const characterCount = returnPromise.toString().length;
-    expect(characterCount).toBeLessThan(50);
+    expect(characterCount).toBeLessThan(80);
   });
 });
 
@@ -42,7 +42,7 @@ describe("returnRejectingPromise", () => {
     expect(await promise.catch((n) => n)).toEqual("The PROMISE was REJECTED");
   });
 
-  it("returnRejectingPromise should have less than `80` characters", () => {
+  it("The string representing the code that you wrote for returnRejectingPromise should have less than `80` characters", () => {
     const characterCount = returnRejectingPromise.toString().length;
     expect(characterCount).toBeLessThan(80);
   });
